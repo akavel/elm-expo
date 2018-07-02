@@ -1,0 +1,28 @@
+{
+  "name": "elm-expo",
+  "version": "0.0.1",
+  "description": "Elm <-> Expo bridge experiment",
+  "main": "elm-expo-bridge.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/akavel/elm-expo.git"
+  },
+  "keywords": [
+    "elm",
+    "expo",
+    "react-native"
+  ],
+  "author": "Mateusz Czapliński",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/akavel/elm-expo/issues"
+  },
+  "homepage": "https://github.com/akavel/elm-expo#readme",
+  "dependencies": {
+    "react": "^16.3.1",
+    "react-native": "~0.55.4"
+  }
+}

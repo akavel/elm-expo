@@ -1,0 +1,6 @@
+# vim temporary files
+.*.sw[pon]
+.sw[pon]
+
+# npm local files
+node_modules/
