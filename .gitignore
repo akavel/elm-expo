@@ -4,3 +4,6 @@
 
 # npm local files
 node_modules/
+
+# Elm local files
+elm-stuff/
