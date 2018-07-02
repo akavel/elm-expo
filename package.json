@@ -4,7 +4,8 @@
   "description": "Elm <-> Expo bridge experiment",
   "main": "elm-expo-bridge.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublish": "elm-make --yes --docs=elm-stuff/documentation.json --prepublish"
   },
   "repository": {
     "type": "git",
@@ -24,5 +25,8 @@
   "dependencies": {
     "react": "^16.3.1",
     "react-native": "~0.55.4"
+  },
+  "devDependencies": {
+    "elm": "^0.18.0"
   }
 }

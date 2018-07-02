@@ -11,6 +11,10 @@ module Expo
         , downs
         )
 
+{-|
+@docs beginnerProgram, program, Node, view, text, Attribute, attribute, Position, downs
+-}
+
 import VirtualDom
 import Mouse
 

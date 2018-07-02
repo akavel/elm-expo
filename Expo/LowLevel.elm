@@ -2,6 +2,10 @@ module Expo.LowLevel exposing
     ( node
     )
 
+{-|
+@docs node
+-}
+
 import VirtualDom
 import Expo exposing (..)
 
