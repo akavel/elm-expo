@@ -302,14 +302,28 @@ ExpoDOM.prototype.replaceChild = function(newChild, oldChild)
   // this._resetLast();
 }
 
-ExpoDOM.prototype.setAttribute = function(key, value)
+ExpoDOM.prototype.setAttribute = function(prefixedKey, value)
 {
   DEBUGF(arguments);
-  this._attrs[key] = typedAttr(key, value);
+  // Workaround for:
+  //   Error while updating property 'flex' in shadow node of type: RCTView
+  //
+  //   java.lang.String cannot be cast to java.lang.Double
+  //
+  //   updateShadowNodeProp - ViewManagersPropertyCache.java:113
+  //   setProperty - ViewmanagerPropertyUpdater.java:154
+  //   ...
+  // FIXME(akavel): add more types, all that are necessary for all views in Java
+  var key = prefixedKey.substring(1);
+  this._attrs[key] = cast[prefixedKey.charAt(0)](value);
   if (this._inflated)
   {
     RN.UIManager.updateView(this._tag, this._name, Object.assign({}, this._attrs));
   }
+}
+var cast = {
+  D: function(x) { return +(x); },  // java.lang.Double
+  S: function(x) { return x; },     // java.lang.String
 }
 ExpoDOM.prototype.removeAttribute = function(key)
 {
@@ -329,26 +343,6 @@ ExpoDOM.prototype.replaceData = function(_1, _2, text)
     RN.UIManager.updateView(this._tag, this._name, Object.assign({}, this._attrs));
   }
 }
-
-
-// HACK(akavel): workaround for:
-//   Error while updating property 'flex' in shadow node of type: RCTView
-//
-//   java.lang.String cannot be cast to java.lang.Double
-//
-//   updateShadowNodeProp - ViewManagersPropertyCache.java:113
-//   setProperty - ViewmanagerPropertyUpdater.java:154
-//   ...
-// TODO: find some better solution, not requiring hardcoded conversions in JS... :(
-function typedAttr(name, value)
-{
-  var cast = attrs[name];
-  return cast ? cast(value) : value;
-}
-var attrs = {
-  flex: _double,
-}
-function _double(x) { return +(x); }
 
 
 module.exports = {

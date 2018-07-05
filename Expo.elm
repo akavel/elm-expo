@@ -36,7 +36,7 @@ text s =
     -- Without RCTText wrapper, I was getting error like in https://github.com/facebook/react-native/issues/13243
     VirtualDom.node "RCTText" []
         [ VirtualDom.node "RCTRawText"
-            [ VirtualDom.attribute "text" s ]
+            [ VirtualDom.attribute "Stext" s ]
             [ ]
         ]
 
@@ -46,10 +46,12 @@ type alias Attribute msg
     = VirtualDom.Property msg
 
 
-{-| -}
+{-| DEPRECATED: Use Expo.Attribute.string/double/... instead -}
 attribute : String -> String -> Attribute msg
-attribute =
+attribute name =
+    -- legacy logic recreation
     VirtualDom.attribute
+    <| if name == "flex" then "Dflex" else ("S" ++ name)
 
 
 {-| -}
