@@ -5,6 +5,7 @@ module Expo
         , Node
         , view
         , text
+        , node
         , Attribute
         , attribute
         , Position
@@ -12,7 +13,7 @@ module Expo
         )
 
 {-|
-@docs beginnerProgram, program, Node, view, text, Attribute, attribute, Position, downs
+@docs beginnerProgram, program, Node, view, text, node, Attribute, attribute, Position, downs
 -}
 
 import VirtualDom
@@ -27,18 +28,24 @@ type alias Node msg
 {-| -}
 view : List (Attribute msg) -> List (Node msg) -> Node msg
 view =
-    VirtualDom.node "RCTView"
+    node "RCTView"
 
 
 {-| -}
 text : String -> Node msg
 text s =
     -- Without RCTText wrapper, I was getting error like in https://github.com/facebook/react-native/issues/13243
-    VirtualDom.node "RCTText" []
-        [ VirtualDom.node "RCTRawText"
+    node "RCTText" []
+        [ node "RCTRawText"
             [ VirtualDom.attribute "Stext" s ]
             [ ]
         ]
+
+
+{-| -}
+node : String -> List (Attribute msg) -> List (Node msg) -> Node msg
+node =
+    VirtualDom.node
 
 
 {-| -}

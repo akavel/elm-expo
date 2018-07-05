@@ -16,12 +16,13 @@ The current situation as I see it is as below:
  - ~~View nodes~~ — *DONE* Note: this uses basic low-level React Native
    blocks, such as RCTView etc.
     - TODO: link to a list of available views in RN codebase
- - View attributes — PARTIALLY DONE: string attributes work OK,
-   integer/float/bool attributes are TODO
+ - View attributes — *PARTIALLY DONE:* string & double attributes work OK,
+   bool attributes are TODO
  - Per-node callbacks/events — TODO
     - Note: especially for `onClick` etc. events/callbacks, this may require
       porting the touch processing logic from React Native (this logic handles
       recognition of scroll events vs. click events)
+ - Scrolling views handling — TODO
  - Global click/touch events — PARTIALLY DONE: basic handling of touch-down;
    needs better handling + touch-up + touch-drag handling
 
