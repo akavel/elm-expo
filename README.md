@@ -1,5 +1,33 @@
+**Elm-Expo** is an experimental library for writing mobile phone apps with
+[Elm](https://elm-lang.org), based on the [Expo](https://expo.io)
+platform/helper app.
 
-See [create-react-native-app](https://github.com/react-community/create-react-native-app#readme):
+The July 2018 version of the library (Elm package 1.0.0, npm package 0.0.1) is
+at a proof of concept/technology preview (pre-alpha) stage. The general idea
+seems to be working, and a bare-bones "counter app" demo can be written in it.
+Some important features are however still TODO. Please note I cannot say how
+much I'll want to expand on developing this library; I'm not backed by anyone.
+You're very much welcome to join the fun (I can answer any questions you want,
+you can email me or open an issue), or take it and run away in any direction
+you like (as long as you respect the license).
+
+The current situation as I see it is as below:
+
+ - ~~View nodes~~ — *DONE* Note: this uses basic low-level React Native
+   blocks, such as RCTView etc.
+    - TODO: link to a list of available views in RN codebase
+ - View attributes — PARTIALLY DONE: string attributes work OK,
+   integer/float/bool attributes are TODO
+ - Per-node callbacks/events — TODO
+    - Note: especially for `onClick` etc. events/callbacks, this may require
+      porting the touch processing logic from React Native (this logic handles
+      recognition of scroll events vs. click events)
+ - Global click/touch events — PARTIALLY DONE: basic handling of touch-down;
+   needs better handling + touch-up + touch-drag handling
+
+## Installation guide
+
+Start with [create-react-native-app](https://github.com/react-community/create-react-native-app#readme):
 
     $ npm install -g create-react-native-app
     $ create-react-native-app my-app    # on Windows: %appdata%\npm\create-react-native-app my-app
@@ -9,7 +37,7 @@ Install extra dependencies:
 
     $ npm install --save-dev chokidar-cli@1.2.0
     $ npm install --save-dev elm@~0.18.0         # FIXME: how to make it add version "~0.18.0"?
-    $ elm-package install akavel/elm-expo        # on Windows: %appdata%\npm\elm-package ...
+    $ elm-package install akavel/elm-expo        # on Windows: %aAppdata%\npm\elm-package ...
 
 Add the following lines to your `package.json`, in section `"scripts"`:
 
@@ -21,7 +49,6 @@ Create directory 'src/', and in it a file named `Main.elm` with the following co
     module Main exposing (..)
 
     import Expo exposing (..)
-    import Expo.LowLevel as LowLevel
 
 
     -- MODEL
