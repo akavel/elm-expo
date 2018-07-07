@@ -94,7 +94,7 @@ function bridgeEvents()
       var view = views[touches[0].target];
       if (view)
       {
-        for (; view !== view._root; view = view.parentNode)
+        for (; view._tag !== view._root; view = view.parentNode)
         {
           console.log(`...bubbling mouseEvent: ${touchToMouse[name]} @ view ${view._tag}`);
           var handlers = view._handlers;
@@ -182,7 +182,7 @@ ExpoDocument.prototype.createElement = function(name)
 // Other than that, the code is copied from RN source.
 if (typeof elmRN_nextReactTag === 'undefined') {
   // NOTE: a global variable, to hopefully better support dynamic/hot reloading of Expo & RN during development
-  elmRN_nextReactTag = (2<<30)-1;
+  elmRN_nextReactTag = (1<<30)-1;
 }
 function allocateTag() {
   var tag = elmRN_nextReactTag;
