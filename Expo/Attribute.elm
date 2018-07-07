@@ -54,5 +54,6 @@ color name color =
 
 typedAttr : String -> String -> value -> Attribute msg
 typedAttr sigil name value =
+    -- FIXME(akavel): maybe we can use Json.Encode... instead?
     VirtualDom.attribute (sigil ++ name) (toString value)
 

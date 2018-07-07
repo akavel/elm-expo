@@ -76,19 +76,46 @@ function bridgeEvents()
     // Translate RN touch events to DOM mouse events
     if (touchToMouse.hasOwnProperty(name))
     {
-      var handlers = mouseEventHandlers[touchToMouse[name]];
+      // TODO(akavel): should we first process DOM handlers, or global handlers?
+      // Also, how does stopPropagation work between them?
+      // TODO(akavel): handle multi-touch
+      // TODO(akavel): generate 'click' events
+      // TODO(akavel): handle all touching in similar way as in RN (esp. scrolling)
       var event = {
         pageX: (touches[0].pageX + 0.5)|0,
         pageY: (touches[0].pageY + 0.5)|0,
+        stopPropagation: function() { event._stopPropagation = true; },
+        _stopPropagation: false,
       };
+
+      // DOM handlers
+      // TODO(akavel): find and understand com.facebook.react.uimanager.TouchTargetHelper#findTouchTargetView
+      // TODO(akavel): findTouchTargetViewWithPointerEvents does some checks, so it may be important to try to please it
+      var view = views[touches[0].target];
+      if (view)
+      {
+        for (; view !== view._root; view = view.parentNode)
+        {
+          console.log(`...bubbling mouseEvent: ${touchToMouse[name]} @ view ${view._tag}`);
+          var handlers = view._handlers;
+          if (!handlers)
+            continue;
+          handlers = handlers[touchToMouse[name]];
+          if (!handlers)
+            continue;
+          for (var i = 0; i < handlers.length; i++)
+            handlers[i].apply(null, [event]);
+          if (event._stopPropagation)
+            break;
+        }
+      }
+
+      // Global handlers
+      var handlers = mouseEventHandlers[touchToMouse[name]];
       // console.log(`...mouseEvent: ${touchToMouse[name]} x${handlers.length} (${JSON.stringify(event)})`);
       // TODO(akavel): call all, or only first?
       if (handlers.length > 0)
       {
-        // TODO(akavel): handle multi-touch
-        // TODO(akavel): handle touches[0].target
-        // TODO(akavel): generate 'click' events
-        // TODO(akavel): handle all touching in similar way as in RN (esp. scrolling)
         handlers[0].apply(null, [event]);
       }
     }
@@ -197,6 +224,7 @@ ExpoDOM.prototype._inflate = function()
     {
       RN.UIManager.setChildren(this._tag, childTags);
     }
+    views[this._tag] = this;
   }
 }
 ExpoDOM.prototype._orphanize = function()
@@ -343,6 +371,12 @@ ExpoDOM.prototype.replaceData = function(_1, _2, text)
     RN.UIManager.updateView(this._tag, this._name, Object.assign({}, this._attrs));
   }
 }
+
+
+// Global tracker of all inflated views, for events dispatching purposes.
+// FIXME(akavel): remove from this list when a view is destroyed!
+var views = {
+};
 
 
 module.exports = {
