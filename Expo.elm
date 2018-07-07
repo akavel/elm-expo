@@ -7,6 +7,9 @@ module Expo
         , text
         , node
         , Attribute
+        , on
+        , onWithOptions
+        , Options
         , attribute
         , Position
         , downs
@@ -18,6 +21,7 @@ module Expo
 
 import VirtualDom
 import Mouse
+import Json.Decode exposing (Decoder)
 
 
 {-| -}
@@ -51,6 +55,25 @@ node =
 {-| -}
 type alias Attribute msg
     = VirtualDom.Property msg
+
+
+{-| -}
+on : String -> Decoder msg -> Attribute msg
+on event =
+    onWithOptions event { stopPropagation = False, preventDefault = False }
+
+
+{-| -}
+onWithOptions : String -> Options -> Decoder msg -> Attribute msg
+onWithOptions event options =
+    VirtualDom.onWithOptions event { options | preventDefault = False }
+
+
+{-| -}
+type alias Options =
+    { stopPropagation : Bool
+    , preventDefault : Bool
+    }
 
 
 {-| DEPRECATED: Use Expo.Attribute.string/double/... instead -}

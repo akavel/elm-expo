@@ -198,6 +198,7 @@ function ExpoDOM(tag)
 {
   // _tag is the node ID in React Native system (passed to createView(), etc.)
   this._tag = tag;
+  this._handlers = {};
   // NOTE(akavel): the following are public properties, part of DOM specification
   this.childNodes = [];
   this.lastChild = undefined;
@@ -370,6 +371,24 @@ ExpoDOM.prototype.replaceData = function(_1, _2, text)
   {
     RN.UIManager.updateView(this._tag, this._name, Object.assign({}, this._attrs));
   }
+}
+ExpoDOM.prototype.addEventListener = function(name, handler)
+{
+  if (!this._handlers.hasOwnProperty(name))
+    this._handlers[name] = [];
+  var handlers = this._handlers[name];
+  if (handlers.indexOf(handler) === -1)
+    handlers.push(handler);
+}
+ExpoDOM.prototype.removeEventListener = function(name, handler)
+{
+  var handlers = this._handlers[name];
+  if (!handlers)
+    return;
+  var i = handlers.indexOf(handler);
+  if (i === -1)
+    return;
+  handlers.splice(i, 1);
 }
 
 
