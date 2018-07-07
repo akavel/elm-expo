@@ -72,44 +72,43 @@ function bridgeEvents()
   // it for multi-touch?
   newEmitter.receiveTouches = function(name, touches, changedIndices)
   {
-    console.log(`...receiveTouches: args=${JSON.stringify(arguments)}`);
-    // Translate RN touch events to DOM mouse events
+    // console.log(`...receiveTouches: args=${JSON.stringify(arguments)}`);
+
+    // TODO(akavel): should we first process DOM handlers, or global handlers?
+    // Also, how does stopPropagation work between them?
+    // TODO(akavel): handle multi-touch
+    // TODO(akavel): generate 'click' events
+    // TODO(akavel): handle all touching in similar way as in RN (esp. scrolling)
+    var event = {
+      pageX: (touches[0].pageX + 0.5)|0,
+      pageY: (touches[0].pageY + 0.5)|0,
+      stopPropagation: function() { event._stopPropagation = true; },
+      _stopPropagation: false,
+    };
+
+    // DOM handlers
+    var view = views[touches[0].target];
+    if (view)
+    {
+      for (; view._tag !== view._root; view = view.parentNode)
+      {
+        // console.log(`...bubbling mouseEvent: ${name} @ view ${view._tag}`);
+        var handlers = view._handlers;
+        if (!handlers)
+          continue;
+        handlers = handlers[name];
+        if (!handlers)
+          continue;
+        for (var i = 0; i < handlers.length; i++)
+          handlers[i].apply(null, [event]);
+        if (event._stopPropagation)
+          break;
+      }
+    }
+
+    // Translate global RN touch events to fake mouse events, as Elm Mouse package only supports those
     if (touchToMouse.hasOwnProperty(name))
     {
-      // TODO(akavel): should we first process DOM handlers, or global handlers?
-      // Also, how does stopPropagation work between them?
-      // TODO(akavel): handle multi-touch
-      // TODO(akavel): generate 'click' events
-      // TODO(akavel): handle all touching in similar way as in RN (esp. scrolling)
-      var event = {
-        pageX: (touches[0].pageX + 0.5)|0,
-        pageY: (touches[0].pageY + 0.5)|0,
-        stopPropagation: function() { event._stopPropagation = true; },
-        _stopPropagation: false,
-      };
-
-      // DOM handlers
-      // TODO(akavel): find and understand com.facebook.react.uimanager.TouchTargetHelper#findTouchTargetView
-      // TODO(akavel): findTouchTargetViewWithPointerEvents does some checks, so it may be important to try to please it
-      var view = views[touches[0].target];
-      if (view)
-      {
-        for (; view._tag !== view._root; view = view.parentNode)
-        {
-          console.log(`...bubbling mouseEvent: ${touchToMouse[name]} @ view ${view._tag}`);
-          var handlers = view._handlers;
-          if (!handlers)
-            continue;
-          handlers = handlers[touchToMouse[name]];
-          if (!handlers)
-            continue;
-          for (var i = 0; i < handlers.length; i++)
-            handlers[i].apply(null, [event]);
-          if (event._stopPropagation)
-            break;
-        }
-      }
-
       // Global handlers
       var handlers = mouseEventHandlers[touchToMouse[name]];
       // console.log(`...mouseEvent: ${touchToMouse[name]} x${handlers.length} (${JSON.stringify(event)})`);
