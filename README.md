@@ -42,6 +42,10 @@ The current situation as I see it is as below:
       recognition of scroll events vs. click events)
  - Global click/touch events — PARTIALLY DONE: basic handling of touch-down;
    needs better handling + touch-up + touch-drag handling
+ - Non-view modules — TODO
+     - Note: the plan here is to hijack HTTP (or WebSocket?) API for the
+       internal mechanism, with some fake URL scheme, e.g. 'elm-expo://'
+       - TODO: how to protect this against command injection in future?
 
 ## Installation guide
 

@@ -79,9 +79,10 @@ type alias Options =
 {-| DEPRECATED: Use Expo.Attribute.string/double/... instead -}
 attribute : String -> String -> Attribute msg
 attribute name =
-    -- legacy logic recreation
-    VirtualDom.attribute
-    <| if name == "flex" then "Dflex" else ("S" ++ name)
+    Debug.crash "do not use"
+    -- -- legacy logic recreation
+    -- VirtualDom.attribute
+    -- <| if name == "flex" then "Dflex" else ("S" ++ name)
 
 
 {-| -}
