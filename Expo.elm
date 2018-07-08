@@ -18,18 +18,20 @@ module Expo
 {-| The `Expo` library is an experimental API for writing mobile apps in Elm,
 using [Expo](https://expo.io). 
 
-**IMPORTANT NOTE:** See the [elm-expo](https://github.com/akavel/elm-expo)
-project for information how to install this package, including the required
-JavaScript dependencies. Note also that this is a **highly experimental
-library** and at a very early stage; things may be missing, not work as
-expected, or not work at all. Use at your own risk. Ok, with due warnings now
-behind us: *Happy Hacking! :)*
+**IMPORTANT NOTE:** See the
+[github.com/akavel/elm-expo](https://github.com/akavel/elm-expo) repository for
+information how to install this package, including the required JavaScript
+dependencies. Note also that this is a **highly experimental library** and at a
+very early stage; things may be missing, not working as expected, or not
+working at all. Use at your own risk.
+
+Ok, with all due warnings now behind us: *Happy Hacking! :)*
 
 # Program Start
 @docs program, beginnerProgram
 
 # Application Look
-@docs Node, view, text, node
+@docs Node, node, view, text
 @docs Attribute
 
 # Per-node User Interactions
@@ -45,7 +47,7 @@ import Json.Decode exposing (Decoder)
 
 
 {-| Check out the docs for [`Html.program`][prog].
-It works exactly the same way.
+It works exactly the same way, but for Expo applications.
 
 [prog]: http://package.elm-lang.org/packages/elm-lang/html/2.0.0/Html#program
 -}
@@ -61,7 +63,7 @@ program =
 
 
 {-| Check out the docs for [`Html.beginnerProgram`][prog].
-It works exactly the same way.
+It works exactly the same way, but for Expo applications.
 
 [prog]: http://package.elm-lang.org/packages/elm-lang/html/2.0.0/Html#beginnerProgram
 -}
@@ -99,13 +101,14 @@ type alias Node msg
     = VirtualDom.Node msg
 
 
-{-| General way to create various Expo view nodes. -}
+{-| General way to create various Expo view nodes. See `view` for example use.
+-}
 node : String -> List (Attribute msg) -> List (Node msg) -> Node msg
 node =
     VirtualDom.node
 
 
-{-| A helper for creating the most common and generic `View` nodes. It is
+{-| A helper for creating the most common and generic "View" nodes. It is
 defined as:
 
     view =
@@ -116,8 +119,8 @@ view =
     node "RCTView"
 
 
-{-| A helper for creating raw text nodes. A simple "Hello world" interface, as
-described in `Node` documentation, can be simplified as:
+{-| A helper for creating raw text nodes. A simple "Hello world" GUI, as
+described in `Node` documentation above, can be simplified as:
 
     hello : Node msg
     hello =
@@ -170,7 +173,7 @@ type alias Options =
     }
 
 
-{-| DEPRECATED: Use Expo.Attribute.string/double/... instead -}
+{-| DEPRECATED: Use [`Expo.Attribute.string`](Expo-Attribute)/`.double`/... instead. -}
 attribute : String -> String -> Attribute msg
 attribute name =
     Debug.crash "do not use"

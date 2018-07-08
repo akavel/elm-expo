@@ -17,19 +17,52 @@ import Expo
 type alias Attribute msg
     = Expo.Attribute msg
 
-{-| -}
+{-| Use it to set attributes with string values. Examples:
+
+    Attr.string "flexDirection" "row"
+    Attr.string "justifyContent" "space-between"
+
+**Important Note:** for attributes with numeric values, use `double` instead;
+for attributes with color values, use `color`.
+-}
 string : String -> String -> Attribute msg
 string name value =
     VirtualDom.attribute ("S" ++ name) value
 
 
-{-| -}
+{-| Use it to set attributes with numeric values. Examples:
+
+    Attr.double "flex" 1
+    Attr.double "width" 80
+    Attr.double "shadowOpacity" 0.25
+
+If you accidentally use `string` instead of `double` or `color`, you may get a
+"Red Screen of Death" in Expo, with an error message similar like below:
+
+    Error while updating property 'Sflex' in shadow node of type: RCTView
+
+    java.lang.String cannot be cast to java.lang.Double
+
+    updateShadowNodeProp - ViewManagersPropertyCache.java:113
+    setProperty - ViewmanagerPropertyUpdater.java:154
+    ...
+
+The above example message would mean there are some `string "flex"` attributes
+in code, which have to be changed to `double "flex"`.
+-}
 double : String -> Float -> Attribute msg
 double =
     typedAttr "D"
 
 
-{-| -}
+{-| Use it to set attributes with numeric values. Examples:
+
+    import Color
+
+    Attr.color "color" Color.white
+    Attr.color "backgroundColor" Color.red
+    Attr.color "shadowColor" Color.black
+-}
 color : String -> Color -> Attribute msg
 color name color =
     let
