@@ -4,12 +4,12 @@ platform/helper app.
 
 The July 2018 version of the library (Elm package 1.0.0, npm package 0.0.1) is
 at a proof of concept/technology preview (pre-alpha) stage. The general idea
-seems to be working, and a bare-bones "counter app" demo can be written in it.
-Some important features are however still TODO. Please note I cannot say how
-much I'll want to expand on developing this library; I'm not backed by anyone.
-You're very much welcome to join the fun (I can answer any questions you want,
-you can email me or open an issue), or take it and run away in any direction
-you like (as long as you respect the license).
+seems to be working, and a bare-bones "counter app" demo can be written in it
+for Android. Some important features are however still TODO. Please note I
+cannot say how much I'll want to expand on developing this library; I'm not
+backed by anyone.  You're very much welcome to join the fun (I can answer any
+questions you want, you can email me or open an issue), or take it and run away
+in any direction you like (as long as you respect the license).
 
 The current situation as I see it is as below:
 
@@ -46,6 +46,19 @@ The current situation as I see it is as below:
      - Note: the plan here is to hijack HTTP (or WebSocket?) API for the
        internal mechanism, with some fake URL scheme, e.g. 'elm-expo://'
        - TODO: how to protect this against command injection in future?
+ - iOS support — TODO
+     - Important Note: I don't own an iOS device, so cannot currently do this
+       without your help. If you are interested in iOS support, I currently see
+       two options: you can sponsor (send or finance) an iOS device for me,
+       and/or author and contribute the code yourself (you're welcome to
+       contact me for discussion and guidance) — even partial support is
+       heartily welcome. In any way, I suggest you contact me [via
+       email](mailto:czapkofan@gmail.com).
+ - Multi-touch — TODO (LATER)
+
+See also
+[elm-native-expo-counter](https://github.com/akavel/elm-native-expo-counter)
+for an example app using this library.
 
 ## Installation guide
 
