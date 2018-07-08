@@ -14,15 +14,32 @@ you like (as long as you respect the license).
 The current situation as I see it is as below:
 
  - ~~View nodes~~ — *DONE* Note: this uses basic low-level React Native
-   blocks, such as RCTView etc.
-    - TODO: link to a list of available views in RN codebase
+   blocks, such as RCTView etc. As of
+   [RN 0.55.4](https://github.com/facebook/react-native/blob/v0.55.4/ReactAndroid/src/main/java/com/facebook/react/shell/MainReactPackage.java#L315),
+   on Android this list should include more or less:
+    - `ARTGroup`, `ARTShape`, `ARTText`, `ARTSurfaceView`
+    - `AndroidCheckBox`, `AndroidProgressBar`, `AndroidSwitch`, `AndroidTextInput`
+    - `AndroidDialogPicker`, `AndroidDropdownPicker`
+    - `AndroidDrawerLayout`, `AndroidSwipeRefreshLayout`
+    - `AndroidViewPager`
+    - `ToolbarAndroid`
+    - (`AndroidHorizontalScrollView`, `AndroidHorizontalScrollContentView`)
+    - (`RCTScrollView`)
+    - `RCTSlider`
+    - `RCTWebView`
+    - `RCTTextInlineImage`
+    - `RCTImageView`
+    - `RCTModalHostView`
+    - `RCTRawText`, `RCTText`, `RCTVirtualText`
+    - `RCTView`
  - View attributes — *PARTIALLY DONE:* string & double attributes work OK,
    bool attributes are TODO
- - Per-node callbacks/events — TODO
+ - ~~Per-node callbacks/events~~ — *DONE* Note: currently only basic low-level
+   React Native touch events (`topTouchStart`, `topTouchMove`, `topTouchEnd`)
+ - Scrolling views handling — TODO
     - Note: especially for `onClick` etc. events/callbacks, this may require
       porting the touch processing logic from React Native (this logic handles
       recognition of scroll events vs. click events)
- - Scrolling views handling — TODO
  - Global click/touch events — PARTIALLY DONE: basic handling of touch-down;
    needs better handling + touch-up + touch-drag handling
 
