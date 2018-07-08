@@ -2,11 +2,12 @@ module Expo.Attribute
     exposing
         ( string
         , double
+        , bool
         , color
         )
 
 {-|
-@docs string, double, color
+@docs string, double, bool, color
 -}
 
 import Color exposing (Color)
@@ -53,6 +54,11 @@ in code, which have to be changed to `double "flex"`.
 double : String -> Float -> Attribute msg
 double =
     typedAttr "D"
+
+
+bool : String -> Bool -> Attribute msg
+bool =
+    typedAttr "B"
 
 
 {-| Use it to set attributes with numeric values. Examples:

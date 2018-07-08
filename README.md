@@ -32,8 +32,7 @@ The current situation as I see it is as below:
     - `RCTModalHostView`
     - `RCTRawText`, `RCTText`, `RCTVirtualText`
     - `RCTView`
- - View attributes — *PARTIALLY DONE:* string & double attributes work OK,
-   bool attributes are TODO
+ - ~~View attributes~~ — *DONE* string, double & bool attributes work OK
  - ~~Per-node callbacks/events~~ — *DONE* Note: currently only basic low-level
    React Native touch events (`topTouchStart`, `topTouchMove`, `topTouchEnd`)
  - Scrolling views handling — TODO

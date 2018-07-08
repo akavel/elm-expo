@@ -352,6 +352,7 @@ ExpoDOM.prototype.setAttribute = function(prefixedKey, value)
 var cast = {
   D: function(x) { return +(x); },  // java.lang.Double
   S: function(x) { return x; },     // java.lang.String
+  B: function(x) { return x === "True"; }, // java.lang.Boolean
 }
 ExpoDOM.prototype.removeAttribute = function(key)
 {
