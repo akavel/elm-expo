@@ -1,5 +1,5 @@
 {
-    "version": "1.1.0",
+    "version": "1.1.1",
     "summary": "Elm <-> Expo bridge experiment",
     "repository": "https://github.com/akavel/elm-expo.git",
     "license": "Apache-2.0",
