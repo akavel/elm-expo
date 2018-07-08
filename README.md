@@ -2,7 +2,7 @@
 [Elm](https://elm-lang.org), based on the [Expo](https://expo.io)
 platform/helper app.
 
-The July 2018 version of the library (Elm package 1.0.0, npm package 0.0.1) is
+The July 2018 version of the library (Elm package 1.1.0, npm package 1.1.0) is
 at a proof of concept/technology preview (pre-alpha) stage. The general idea
 seems to be working, and a bare-bones "counter app" demo can be written in it
 for Android. Some important features are however still TODO. Please note I
