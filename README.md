@@ -84,6 +84,7 @@ Create directory 'src/', and in it a file named `Main.elm` with the following co
     module Main exposing (..)
 
     import Expo exposing (..)
+    import Expo.Attribute as Attr
 
 
     -- MODEL
@@ -120,9 +121,9 @@ Create directory 'src/', and in it a file named `Main.elm` with the following co
     view : Model -> Node Msg
     view model =
         Expo.view
-            [ attribute "flex" "1"
-            , attribute "alignItems" "center"
-            , attribute "justifyContent" "center"
+            [ Attr.double "flex" 1
+            , Attr.string "alignItems" "center"
+            , Attr.string "justifyContent" "center"
             ]
             [ text "hello Elm-Expo!"
             , text ("Counter: " ++ toString model.n)
